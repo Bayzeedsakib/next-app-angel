@@ -16,8 +16,9 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(loginUrl);
   }
 
-  // Redirect to dashboard if accessing auth pages with token
-  if ((pathname === '/login' || pathname === '/register') && token) {
+  // Redirect to dashboard if accessing login page with token
+  // Note: /register is allowed even when logged in (for admins to add new moderators)
+  if (pathname === '/login' && token) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
