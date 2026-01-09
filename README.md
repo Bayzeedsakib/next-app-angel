@@ -163,7 +163,7 @@ next-app-angel/
 │   ├── auth.ts                      # Auth types
 │   ├── moderator.ts                 # Moderator types
 │   └── track.ts                     # Track types
-├── middleware.ts                    # Route protection middleware
+├── proxy.ts                         # Route protection proxy (Next.js 16)
 └── package.json
 ```
 
