@@ -47,7 +47,7 @@ export default function RegisterPage() {
               {...register('email')}
               type="email"
               id="email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
               placeholder="moderator@example.com"
             />
             {errors.email && (
@@ -63,7 +63,7 @@ export default function RegisterPage() {
               {...register('password')}
               type="password"
               id="password"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
               placeholder="••••••••"
             />
             {errors.password && (
@@ -79,7 +79,7 @@ export default function RegisterPage() {
               {...register('displayName')}
               type="text"
               id="displayName"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
               placeholder="John Doe"
             />
           </div>
@@ -92,7 +92,7 @@ export default function RegisterPage() {
               {...register('bio')}
               id="bio"
               rows={3}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg text-gray-900 bg-white placeholder:text-gray-400 focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
               placeholder="Tell us about yourself..."
             />
           </div>
