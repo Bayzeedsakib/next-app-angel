@@ -1,14 +1,15 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { useAuth } from '@/app/contexts/AuthContext';
-import { usePathname } from 'next/navigation';
+import Link from "next/link";
+import { useAuth } from "@/app/contexts/AuthContext";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
   const { user, logout, isAuthenticated } = useAuth();
   const pathname = usePathname();
 
-  const isActive = (path: string) => pathname === path || pathname.startsWith(path + '/');
+  const isActive = (path: string) =>
+    pathname === path || pathname.startsWith(path + "/");
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200">
@@ -30,9 +31,9 @@ export default function Header() {
               <Link
                 href="/dashboard"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                  isActive('/dashboard')
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-50'
+                  isActive("/dashboard")
+                    ? "bg-indigo-50 text-indigo-700"
+                    : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 Dashboard
@@ -40,9 +41,9 @@ export default function Header() {
               <Link
                 href="/moderators"
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
-                  isActive('/moderators')
-                    ? 'bg-indigo-50 text-indigo-700'
-                    : 'text-gray-600 hover:bg-gray-50'
+                  isActive("/moderators")
+                    ? "bg-indigo-50 text-indigo-700"
+                    : "text-gray-600 hover:bg-gray-50"
                 }`}
               >
                 Moderators
@@ -86,4 +87,3 @@ export default function Header() {
     </header>
   );
 }
-

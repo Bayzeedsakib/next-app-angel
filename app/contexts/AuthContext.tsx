@@ -1,12 +1,17 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import Cookies from 'js-cookie';
-import { jwtDecode } from 'jwt-decode';
-import { authApi } from '@/lib/api/auth';
-import { Moderator, LoginCredentials, RegisterData, AuthContextType } from '@/types/auth';
-import { toast } from 'sonner';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { jwtDecode } from "jwt-decode";
+import { authApi } from "@/lib/api/auth";
+import {
+  Moderator,
+  LoginCredentials,
+  RegisterData,
+  AuthContextType,
+} from "@/types/auth";
+import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -17,24 +22,24 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Check if user is logged in on mount
-    const token = Cookies.get('auth_token');
+    const token = Cookies.get("auth_token");
     if (token) {
       try {
         const decoded: any = jwtDecode(token);
         // Check if token is expired
         if (decoded.exp * 1000 < Date.now()) {
-          Cookies.remove('auth_token');
+          Cookies.remove("auth_token");
           setUser(null);
         } else {
           // Set user from decoded token
           setUser({
             id: decoded.sub || decoded.id,
             email: decoded.email,
-            status: 'active',
+            status: "active",
           });
         }
       } catch (error) {
-        Cookies.remove('auth_token');
+        Cookies.remove("auth_token");
         setUser(null);
       }
     }
@@ -44,11 +49,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const login = async (credentials: LoginCredentials) => {
     try {
       const response = await authApi.login(credentials);
-      
+
       // Store token in cookie (7 days expiry)
-      Cookies.set('auth_token', response.access_token, { 
+      Cookies.set("auth_token", response.access_token, {
         expires: 7,
-        sameSite: 'strict',
+        sameSite: "strict",
       });
 
       // Decode token to get user info
@@ -56,13 +61,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setUser({
         id: decoded.sub || decoded.id,
         email: decoded.email,
-        status: 'active',
+        status: "active",
       });
 
-      toast.success('Login successful!');
-      router.push('/dashboard');
+      toast.success("Login successful!");
+      router.push("/dashboard");
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Login failed';
+      const message = error.response?.data?.message || "Login failed";
       toast.error(message);
       throw error;
     }
@@ -71,35 +76,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const register = async (data: RegisterData) => {
     try {
       const response = await authApi.register(data);
-      
-      // Store token in cookie
-      Cookies.set('auth_token', response.access_token, { 
-        expires: 7,
-        sameSite: 'strict',
-      });
 
-      // Decode token to get user info
-      const decoded: any = jwtDecode(response.access_token);
-      setUser({
-        id: decoded.sub || decoded.id,
-        email: decoded.email,
-        status: 'active',
-      });
-
-      toast.success('Registration successful!');
-      router.push('/dashboard');
+      toast.success("Registration successful! Please login");
+      router.push("/login");
     } catch (error: any) {
-      const message = error.response?.data?.message || 'Registration failed';
+      const message = error.response?.data?.message || "Registration failed";
       toast.error(message);
       throw error;
     }
   };
 
   const logout = () => {
-    Cookies.remove('auth_token');
+    Cookies.remove("auth_token");
     setUser(null);
-    toast.success('Logged out successfully');
-    router.push('/login');
+    toast.success("Logged out successfully");
+    router.push("/login");
   };
 
   return (
@@ -121,8 +112,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
+    throw new Error("useAuth must be used within an AuthProvider");
   }
   return context;
 }
-
