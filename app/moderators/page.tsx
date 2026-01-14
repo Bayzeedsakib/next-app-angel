@@ -1,20 +1,20 @@
-import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import { moderatorsApi } from '@/lib/api/moderators';
-import ModeratorsClient from './ModeratorsClient';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import Header from "@/components/layout/Header";
+import Footer from "@/components/layout/Footer";
+import { moderatorsApi } from "@/lib/api/moderators";
+import ModeratorsClient from "./ModeratorsClient";
 
 // Server Component - SSR Data Fetching
 export default async function ModeratorsPage() {
   const cookieStore = await cookies();
-  const token = cookieStore.get('auth_token')?.value;
+  const token = cookieStore.get("auth_token")?.value;
 
   if (!token) {
-    redirect('/login');
+    redirect("/login");
   }
 
-  let moderators = [];
+  let moderators: any = [];
   let error = null;
 
   try {
@@ -28,8 +28,12 @@ export default async function ModeratorsPage() {
       <Header />
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">All Moderators</h1>
-          <p className="text-gray-600">Manage and view all moderator accounts</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            All Moderators
+          </h1>
+          <p className="text-gray-600">
+            Manage and view all moderator accounts
+          </p>
         </div>
 
         {error ? (
@@ -44,4 +48,3 @@ export default async function ModeratorsPage() {
     </div>
   );
 }
-
